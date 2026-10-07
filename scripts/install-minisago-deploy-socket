@@ -22,4 +22,8 @@ fi
   /etc/systemd/system/sago-cloud-minisago-deploy@.service
 "${SUDO[@]}" systemctl daemon-reload
 "${SUDO[@]}" systemctl enable --now sago-cloud-minisago-deploy.socket
+# Apply permissions to an already-active socket without replacing the inode
+# bind-mounted into the worker. The unit sets the same group on future starts.
+"${SUDO[@]}" chgrp 1000 /run/sago-cloud/minisago-deploy.sock
+"${SUDO[@]}" chmod 0660 /run/sago-cloud/minisago-deploy.sock
 "${SUDO[@]}" systemctl status sago-cloud-minisago-deploy.socket --no-pager

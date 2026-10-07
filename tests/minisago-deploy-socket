@@ -45,6 +45,9 @@ fi
 
 grep -Fqx 'ListenStream=/run/sago-cloud/minisago-deploy.sock' "$socket_unit"
 grep -Fqx 'SocketMode=0660' "$socket_unit"
+grep -Fqx 'SocketGroup=1000' "$socket_unit"
+grep -Fq 'chgrp 1000 /run/sago-cloud/minisago-deploy.sock' "$installer"
+grep -Fq 'chmod 0660 /run/sago-cloud/minisago-deploy.sock' "$installer"
 grep -Fqx 'User=ubuntu' "$service_unit"
 grep -Fqx 'StandardInput=socket' "$service_unit"
 grep -Fqx 'ExecStart=/usr/local/libexec/sago-cloud-minisago-deploy' "$service_unit"

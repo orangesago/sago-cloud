@@ -144,6 +144,11 @@ The watcher finds managed containers through the
 `dev.hsichen.sago-cloud.managed=true` label, so it works across independent
 Compose projects.
 
+The socket uses mode `0660` and group `1000`, matching the `bun` worker's GID
+rather than the host's `ubuntu` group. Rerun the installer after updating the
+socket unit; it updates the active socket's permissions without replacing the
+inode mounted into the worker.
+
 The MiniSago deployment socket accepts one immutable commit from the Oracle
 worker, acknowledges it before the worker restarts, and deploys the matching
 core and worker image tags as a socket-activated service. The request also
