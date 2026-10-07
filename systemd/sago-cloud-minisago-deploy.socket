@@ -7,7 +7,8 @@ Accept=yes
 DirectoryMode=0750
 SocketMode=0660
 SocketUser=ubuntu
-SocketGroup=ubuntu
+# The oven/bun worker runs with GID 1000; the host ubuntu GID may differ.
+SocketGroup=1000
 RemoveOnStop=true
 
 [Install]
